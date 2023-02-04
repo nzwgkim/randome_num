@@ -27,9 +27,12 @@ class _SettingsState extends State<Settings> {
                       .toString()
                       .split('')
                       .map(
-                        (x) => Image.asset(
-                          'asset/img/$x.png',
-                          height: 80,
+                        (x) => Padding(
+                          padding: const EdgeInsets.all(4.0),
+                          child: Image.asset(
+                            'asset/img/$x.png',
+                            height: 80,
+                          ),
                         ),
                       )
                       .toList(),
@@ -54,7 +57,9 @@ class _SettingsState extends State<Settings> {
                           MaterialStatePropertyAll<Color>(Colors.green),
                     ),
                     onPressed: () {
-                      Navigator.of(context).pop(widget.curValue.toInt());
+                      final setValue = widget.curValue.toInt();
+                      print('setting: $setValue');
+                      Navigator.of(context).pop(setValue);
                     },
                     child: const Text('Save')),
               )
