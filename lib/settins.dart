@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 
 class Settings extends StatefulWidget {
-  const Settings({super.key});
+  late int curValue;
+  Settings({required this.curValue, super.key});
 
   @override
   State<Settings> createState() => _SettingsState();
 }
 
 class _SettingsState extends State<Settings> {
-  var curValue = 10000.0;
+  // var curValue = 10000.0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,7 +22,7 @@ class _SettingsState extends State<Settings> {
             children: [
               Expanded(
                 child: Row(
-                  children: curValue
+                  children: widget.curValue
                       .toInt()
                       .toString()
                       .split('')
@@ -35,12 +36,12 @@ class _SettingsState extends State<Settings> {
                 ),
               ),
               Slider(
-                value: curValue,
+                value: widget.curValue.toDouble(),
                 min: 10000,
                 max: 1000000,
                 onChanged: (value) {
                   setState(() {
-                    curValue = value;
+                    widget.curValue = value.toInt();
                   });
                   print('Slider: $value');
                 },
@@ -53,7 +54,7 @@ class _SettingsState extends State<Settings> {
                           MaterialStatePropertyAll<Color>(Colors.green),
                     ),
                     onPressed: () {
-                      Navigator.of(context).pop(curValue.toInt());
+                      Navigator.of(context).pop(widget.curValue.toInt());
                     },
                     child: const Text('Save')),
               )
