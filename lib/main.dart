@@ -56,8 +56,9 @@ class _HomeState extends State<Home> {
   }
 }
 
+///-- void Function()? onGenPressed;
 class BottomPart extends StatefulWidget {
-  void Function()? onGenPressed;
+  VoidCallback onGenPressed;
   BottomPart({required this.onGenPressed, super.key});
 
   @override
@@ -93,12 +94,15 @@ class MiddlePart extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: randNum
+            .asMap()
+            .entries
             .map((x) => Row(
-                children: x
+                children: x.value
                     .toString()
                     .split('')
                     .map((e) => Padding(
-                          padding: const EdgeInsets.all(4.0),
+                          padding: EdgeInsets.only(
+                              bottom: x.key == 2 ? 0 : 8, right: 8),
                           child: Image.asset(
                             'asset/img/$e.png',
                             height: 80,
