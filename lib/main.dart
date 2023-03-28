@@ -31,11 +31,16 @@ class _HomeState extends State<Home> {
 
     onGenPressed() {
       final num = Random();
-      for (var i = 0; i < 3; i++) {
-        randNum[i] = num.nextInt(maxNum);
+      final Set<int> numberSet = {};
+
+// 중복된 숫자가 발생할 경우를 위해...
+      while (numberSet.length != 3) {
+        numberSet.add(num.nextInt(maxNum));
       }
-      print('max: $maxNum, random: $randNum');
-      setState(() {});
+
+      setState(() {
+        randNum = numberSet.toList();
+      });
     }
 
     return Scaffold(
