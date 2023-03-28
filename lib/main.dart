@@ -20,29 +20,6 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    onPressed() async {
-      print('preTarget: $maxNum');
-      final setValue = await Navigator.of(context).push(
-        MaterialPageRoute(builder: (context) => Settings(curValue: maxNum)),
-      );
-      maxNum = setValue;
-      print('postTarget: $maxNum');
-    }
-
-    onGenPressed() {
-      final num = Random();
-      final Set<int> numberSet = {};
-
-// 중복된 숫자가 발생할 경우를 위해...
-      while (numberSet.length != 3) {
-        numberSet.add(num.nextInt(maxNum));
-      }
-
-      setState(() {
-        randNum = numberSet.toList();
-      });
-    }
-
     return Scaffold(
       backgroundColor: const Color(0xFF2D2D33),
       body: SafeArea(
@@ -59,24 +36,42 @@ class _HomeState extends State<Home> {
       ),
     );
   }
+
+  onPressed() async {
+    print('preTarget: $maxNum');
+    final setValue = await Navigator.of(context).push(
+      MaterialPageRoute(builder: (context) => Settings(curValue: maxNum)),
+    );
+    maxNum = setValue;
+    print('postTarget: $maxNum');
+  }
+
+  onGenPressed() {
+    final num = Random();
+    final Set<int> numberSet = {};
+
+// 중복된 숫자가 발생할 경우를 위해...
+    while (numberSet.length != 3) {
+      numberSet.add(num.nextInt(maxNum));
+    }
+
+    setState(() {
+      randNum = numberSet.toList();
+    });
+  }
 }
 
 ///-- void Function()? onGenPressed;
-class BottomPart extends StatefulWidget {
+class BottomPart extends StatelessWidget {
   VoidCallback onGenPressed;
   BottomPart({required this.onGenPressed, super.key});
 
-  @override
-  State<BottomPart> createState() => _BottomPartState();
-}
-
-class _BottomPartState extends State<BottomPart> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       width: double.infinity,
       child: ElevatedButton(
-          onPressed: widget.onGenPressed,
+          onPressed: onGenPressed,
           child: const Text(
             'Generate a number!',
             style: TextStyle(fontSize: 20, color: Colors.white),
