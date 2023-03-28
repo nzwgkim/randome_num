@@ -20,24 +20,7 @@ class _SettingsState extends State<Settings> {
           padding: const EdgeInsets.all(8.0),
           child: Column(
             children: [
-              Expanded(
-                child: Row(
-                  children: widget.curValue
-                      .toInt()
-                      .toString()
-                      .split('')
-                      .map(
-                        (x) => Padding(
-                          padding: const EdgeInsets.all(4.0),
-                          child: Image.asset(
-                            'asset/img/$x.png',
-                            height: 80,
-                          ),
-                        ),
-                      )
-                      .toList(),
-                ),
-              ),
+              _BodyPart(widget: widget),
               Slider(
                 value: widget.curValue.toDouble(),
                 min: 10000,
@@ -46,7 +29,7 @@ class _SettingsState extends State<Settings> {
                   setState(() {
                     widget.curValue = value.toInt();
                   });
-                  print('Slider: $value');
+                  // print('Slider: $value');
                 },
               ),
               SizedBox(
@@ -58,7 +41,7 @@ class _SettingsState extends State<Settings> {
                     ),
                     onPressed: () {
                       final setValue = widget.curValue.toInt();
-                      print('setting: $setValue');
+                      // print('setting: $setValue');
                       Navigator.of(context).pop(setValue);
                     },
                     child: const Text('Save')),
@@ -66,6 +49,37 @@ class _SettingsState extends State<Settings> {
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+class _BodyPart extends StatelessWidget {
+  const _BodyPart({
+    required this.widget,
+  });
+
+  /// take a widget as a parameter
+  final Settings widget;
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: Row(
+        children: widget.curValue
+            .toInt()
+            .toString()
+            .split('')
+            .map(
+              (x) => Padding(
+                padding: const EdgeInsets.all(4.0),
+                child: Image.asset(
+                  'asset/img/$x.png',
+                  height: 70,
+                ),
+              ),
+            )
+            .toList(),
       ),
     );
   }
